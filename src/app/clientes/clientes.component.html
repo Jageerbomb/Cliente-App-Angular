@@ -2,6 +2,9 @@
   <div class="card-header">Clientes</div>
   <div class="card-body">
     <h5 class="card-title">Listado de Clientes</h5>
+    <div class="my-2 text-left">
+      <button class="btn btn-outline-primary" [routerLink]="['/clientes/form']"> Crear Cliente </button>
+    </div>
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
@@ -10,6 +13,7 @@
           <th>Apellido</th>
           <th>Creado</th>
           <th>Correo</th>
+          <th>Opciones</th>
         </tr>
       </thead>
       <tbody>
@@ -19,6 +23,20 @@
           <td>{{ cliente.apellido }}</td>
           <td>{{ cliente.createAt }}</td>
           <td>{{ cliente.email }}</td>
+          <td>
+            <div class="input-group ">
+              <div class="col-sm-4">
+                <button class="btn btn-outline-secondary">
+                  Modificar
+                </button>
+              </div>
+              <div class="col-sm-4">
+                <button class="btn btn-outline-danger" (click)="deleteById(cliente.id)">
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>

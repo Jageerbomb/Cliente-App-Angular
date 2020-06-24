@@ -9,12 +9,25 @@ import { ClienteService } from './cliente.service';
 export class ClientesComponent implements OnInit {
   clientes: Cliente[];
 
-  constructor(private clienteService: ClienteService) { }
+  constructor(
+    private clienteService: ClienteService
+  ) { }
 
   ngOnInit(): void {
+   this.getData();
+  }
+
+  getData(): void{
     this.clienteService.getClientes().subscribe(
       clientes => this.clientes = clientes
     );
+  }
+
+  deleteById(id){
+    this.clienteService.deleteById(id).subscribe(response => {
+      console.log('eliminado');
+      this.getData();
+    })
   }
 
 }
