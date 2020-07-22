@@ -25,13 +25,13 @@
           <td>{{ cliente.email }}</td>
           <td>
             <div class="input-group ">
-              <div class="col-sm-4">
-                <button class="btn btn-outline-secondary">
-                  Modificar
+              <div class="col-sm-3">
+                <button class="btn btn-outline-secondary" [routerLink]="['/clientes/form',cliente.id]">
+                  Editar
                 </button>
               </div>
-              <div class="col-sm-4">
-                <button class="btn btn-outline-danger" (click)="deleteById(cliente.id)">
+              <div class="col-sm-3">
+                <button class="btn btn-outline-danger" (click)="delete(cliente)">
                   Eliminar
                 </button>
               </div>
