@@ -3,41 +3,44 @@
   <div class="card-body">
     <h5 class="card-title">Listado de Clientes</h5>
     <div class="my-2 text-left">
-      <button class="btn btn-outline-primary" [routerLink]="['/clientes/form']"> Crear Cliente </button>
+      <button class="btn btn-outline-primary" [routerLink]="['/clientes/form']"> Crear Cliente</button>
     </div>
-    <table class="table table-bordered table-striped">
+    <div *ngIf="clientes?.length == 0" class="alert alert-info">
+      No existen registros en la base de datos.
+    </div>
+    <table class="table table-bordered table-striped" *ngIf="clientes?.length > 0">
       <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Creado</th>
-          <th>Correo</th>
-          <th>Opciones</th>
-        </tr>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Creado</th>
+        <th>Correo</th>
+        <th>Opciones</th>
+      </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let cliente of clientes">
-          <td>{{ cliente.id }}</td>
-          <td>{{ cliente.nombre }}</td>
-          <td>{{ cliente.apellido }}</td>
-          <td>{{ cliente.createAt }}</td>
-          <td>{{ cliente.email }}</td>
-          <td>
-            <div class="input-group ">
-              <div class="col-sm-3">
-                <button class="btn btn-outline-secondary" [routerLink]="['/clientes/form',cliente.id]">
-                  Editar
-                </button>
-              </div>
-              <div class="col-sm-3">
-                <button class="btn btn-outline-danger" (click)="delete(cliente)">
-                  Eliminar
-                </button>
-              </div>
+      <tr *ngFor="let cliente of clientes">
+        <td>{{ cliente.id }}</td>
+        <td>{{ cliente.nombre }}</td>
+        <td>{{ cliente.apellido }}</td>
+        <td>{{ cliente.createAt }}</td>
+        <td>{{ cliente.email }}</td>
+        <td>
+          <div class="input-group ">
+            <div class="col-sm-3">
+              <button class="btn btn-outline-secondary" [routerLink]="['/clientes/form',cliente.id]">
+                Editar
+              </button>
             </div>
-          </td>
-        </tr>
+            <div class="col-sm-3">
+              <button class="btn btn-outline-danger" (click)="delete(cliente)">
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>

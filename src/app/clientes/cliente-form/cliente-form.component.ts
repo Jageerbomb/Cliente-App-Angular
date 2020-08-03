@@ -27,8 +27,8 @@ export class ClienteFormComponent implements OnInit {
 
   clearForm(): void {
     this.cliente.id = null;
-    this.cliente.nombre = '';
-    this.cliente.apellido = '';
+    this.cliente.nombre = null;
+    this.cliente.apellido = null;
     this.cliente.createAt = new Date();
   }
 
@@ -36,21 +36,17 @@ export class ClienteFormComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       let id = params['id'];
       if (id) {
-        this.clienteService.findById(id).subscribe(response => {
-          this.cliente = response;
+        this.clienteService.findById(id).subscribe(json => {
+          this.cliente = json;
         })
       }
     })
   }
 
-  save() {
-    this.clienteService.create(this.cliente).subscribe(response => {
+  create() {
+    this.clienteService.create(this.cliente).subscribe(cliente => {
         this.router.navigate(['/clientes']);
-        swal.fire(
-          'Listo',
-          'Cliente ' + response.nombre + ' creado con exito!',
-          "success"
-        );
+        swal.fire('Nuevo Cliente', 'El cliente '+cliente.nombre+' ha sido creado con exito',"success");
       }
     )
   }
@@ -67,9 +63,10 @@ export class ClienteFormComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        this.clienteService.update(this.cliente).subscribe(response => {
+        this.clienteService.update(this.cliente).subscribe(json => {
             this.router.navigate(['/clientes']);
-            swal.fire('Listo', 'Cliente ' + response.nombre + ' a sido actualizado!', "success");
+            console.log(json)
+            swal.fire('Cliente Actualizado', json.mensaje+': '+json.cliente.nombre,"success");
           }
         )
       }
