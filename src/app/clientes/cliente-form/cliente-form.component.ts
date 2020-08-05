@@ -12,6 +12,7 @@ import swal from 'sweetalert2';
 export class ClienteFormComponent implements OnInit {
 
   cliente: Cliente = new Cliente();
+  public errores: string[];
 
   constructor(
     private clienteService: ClienteService,
@@ -46,7 +47,11 @@ export class ClienteFormComponent implements OnInit {
   create() {
     this.clienteService.create(this.cliente).subscribe(cliente => {
         this.router.navigate(['/clientes']);
-        swal.fire('Nuevo Cliente', 'El cliente '+cliente.nombre+' ha sido creado con exito',"success");
+        swal.fire('Nuevo Cliente', 'El cliente ' + cliente.nombre + ' ha sido creado con exito', "success");
+      },err=>{
+        this.errores = err.error as string[];
+        console.error("CODIGO DEL ERROR DESDE EL BACKEND: " + err.status)
+        console.error(err.error.errors)
       }
     )
   }
@@ -62,15 +67,20 @@ export class ClienteFormComponent implements OnInit {
       confirmButtonText: 'Si, Editar.',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
-      if (result.value) {
-        this.clienteService.update(this.cliente).subscribe(json => {
-            this.router.navigate(['/clientes']);
-            console.log(json)
-            swal.fire('Cliente Actualizado', json.mensaje+': '+json.cliente.nombre,"success");
-          }
-        )
+        if (result.value) {
+          this.clienteService.update(this.cliente).subscribe(json => {
+              this.router.navigate(['/clientes']);
+              console.log(json);
+              swal.fire('Cliente Actualizado', json.mensaje + ': ' + json.cliente.nombre, "success");
+            },err=>{
+              this.errores = err.error as string[];
+              console.error("CODIGO DEL ERROR DESDE EL BACKEND: " + err.status)
+              console.error(err.error.errors)
+            }
+          )
+        }
       }
-    });
+    );
   }
 
 }

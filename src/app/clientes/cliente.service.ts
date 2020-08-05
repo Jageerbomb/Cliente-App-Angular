@@ -28,7 +28,7 @@ export class ClienteService {
       catchError(e => {
         this.router.navigate(['/clientes']);
         console.log(e.error.mensaje);
-        swal.fire('Error ',e.error.mensaje, 'error');
+        swal.fire('Error ', e.error.mensaje, 'error');
         return throwError(e);
       })
     );
@@ -38,8 +38,11 @@ export class ClienteService {
     return this.http.post(this.ENDPOINT, cliente, {headers: this.httpHeaders}).pipe(
       map((response: any) => response.cliente as Cliente),
       catchError(e => {
+        if (e.status == 400) {
+          return throwError(e);
+        }
         console.error(e.error.mensaje);
-        swal.fire(e.error.mensaje, e.error.error,'error');
+        swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
       })
     );
@@ -49,8 +52,11 @@ export class ClienteService {
     const suffix = '/' + cliente.id.toString();
     return this.http.put<any>(this.ENDPOINT + suffix, cliente, {headers: this.httpHeaders}).pipe(
       catchError(e => {
+        if (e.status == 400) {
+          return throwError(e);
+        }
         console.error(e.error.mensaje);
-        swal.fire(e.error.mensaje,e.error.error,'error');
+        swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
       })
     );
@@ -61,7 +67,7 @@ export class ClienteService {
     return this.http.delete(this.ENDPOINT + suffix).pipe(
       catchError(e => {
         console.error(e.error.mensaje);
-        swal.fire(e.error.mensaje,e.error.error,'error');
+        swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
       })
     );
