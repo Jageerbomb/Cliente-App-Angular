@@ -48,11 +48,11 @@ export class ClienteFormComponent implements OnInit {
     this.clienteService.create(this.cliente).subscribe(cliente => {
         this.router.navigate(['/clientes']);
         swal.fire('Nuevo Cliente', 'El cliente ' + cliente.nombre + ' ha sido creado con exito', "success");
-      },err=>{
-        this.errores = err.error as string[];
+      },(err=>{
+        this.errores = err.error.errors as string[];
         console.error("CODIGO DEL ERROR DESDE EL BACKEND: " + err.status)
         console.error(err.error.errors)
-      }
+      })
     )
   }
 
@@ -75,7 +75,7 @@ export class ClienteFormComponent implements OnInit {
             },err=>{
               this.errores = err.error as string[];
               console.error("CODIGO DEL ERROR DESDE EL BACKEND: " + err.status)
-              console.error(err.error.errors)
+              console.error(this.errores)
             }
           )
         }
