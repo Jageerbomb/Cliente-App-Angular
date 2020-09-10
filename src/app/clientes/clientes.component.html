@@ -23,17 +23,17 @@
       <tr *ngFor="let cliente of clientes">
         <td>{{ cliente.id }}</td>
         <td>{{ cliente.nombre }}</td>
-        <td>{{ cliente.apellido }}</td>
-        <td>{{ cliente.createAt }}</td>
+        <td>{{ cliente.apellido | uppercase}}</td>
+        <td>{{ cliente.createAt | date:'EEEE dd, MMMM yyyy'}}</td>
         <td>{{ cliente.email }}</td>
         <td>
-          <div class="input-group ">
-            <div class="col-sm-3">
+          <div class="btn-group">
+            <div class="col">
               <button class="btn btn-outline-secondary" [routerLink]="['/clientes/form',cliente.id]">
                 Editar
               </button>
             </div>
-            <div class="col-sm-3">
+            <div class="col">
               <button class="btn btn-outline-danger" (click)="delete(cliente)">
                 Eliminar
               </button>
@@ -43,5 +43,6 @@
       </tr>
       </tbody>
     </table>
+    <app-paginator *ngIf="paginador" [paginador]="paginador"></app-paginator>
   </div>
 </div>

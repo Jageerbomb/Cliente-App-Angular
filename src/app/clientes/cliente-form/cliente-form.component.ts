@@ -4,7 +4,6 @@ import {ClienteService} from "../cliente.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-form',
   templateUrl: './cliente-form.component.html'
@@ -22,15 +21,15 @@ export class ClienteFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.clearForm();
     this.cargarCliente();
+    this.clearForm();
   }
 
   clearForm(): void {
     this.cliente.id = null;
     this.cliente.nombre = null;
     this.cliente.apellido = null;
-    this.cliente.createAt = new Date();
+    this.cliente.createAt = null;
   }
 
   cargarCliente() {
@@ -45,6 +44,7 @@ export class ClienteFormComponent implements OnInit {
   }
 
   create() {
+    console.log(this.cliente)
     this.clienteService.create(this.cliente).subscribe(cliente => {
         this.router.navigate(['/clientes']);
         swal.fire('Nuevo Cliente', 'El cliente ' + cliente.nombre + ' ha sido creado con exito', "success");

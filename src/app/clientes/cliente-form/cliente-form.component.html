@@ -49,6 +49,15 @@
           </div>
         </div>
       </div>
+      <div class="form-group row">
+        <label for="createAt" class="col-form-label col-sm-2">Fecha</label>
+        <div class="col-sm-5">
+          <!--<input type="date" class="form-control" id="createAt" name="createAt" [(ngModel)]="cliente.createAt" #createAt="ngModel">-->
+          <input [matDatepicker]="picker" class="form-control" id="createAt" name="createAt" [(ngModel)]="cliente.createAt" style="display: inline; width: 300px">
+          <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+      </div>
     </form>
   </div>
   <div class="card-footer">
