@@ -90,4 +90,22 @@ export class ClienteService {
       })
     );
   }
+
+  uploadPhoto(archivo: File, id): Observable<Cliente>{
+    let suffix = "/upload/";
+    let formData = new FormData();
+    formData.append("archivo", archivo);
+    formData.append("id", id);
+    return this.http.post(this.ENDPOINT + suffix, formData).pipe(
+      map((response: any) => response.cliente as Cliente),
+      catchError(e => {
+        if (e.status == 400) {
+          return throwError(e);
+        }
+        console.error(e.error.mensaje);
+        swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
+  }
 }

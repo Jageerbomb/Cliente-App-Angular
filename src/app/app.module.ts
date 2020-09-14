@@ -21,6 +21,7 @@ import {MatInputModule} from "@angular/material/input";
 
 import {registerLocaleData} from "@angular/common";
 import localeEs from "@angular/common/locales/es-CL";
+import { DetalleComponent } from './clientes/detalle/detalle.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -30,7 +31,8 @@ const routes: Routes = [
   {path: 'clientes', component: ClientesComponent},
   {path: 'clientes/page/:page', component: ClientesComponent},
   {path: 'clientes/form', component: ClienteFormComponent},
-  {path: 'clientes/form/:id', component: ClienteFormComponent}
+  {path: 'clientes/form/:id', component: ClienteFormComponent},
+  {path: 'clientes/ver/:id', component: DetalleComponent}
 ];
 
 @NgModule({
@@ -41,7 +43,8 @@ const routes: Routes = [
     DirectivaComponent,
     ClientesComponent,
     ClienteFormComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    DetalleComponent
   ],
   imports: [
     BrowserModule,
