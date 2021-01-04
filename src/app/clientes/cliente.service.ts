@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Cliente} from './cliente';
 import {Observable, of, throwError} from 'rxjs';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from "@angular/common/http";
 import {catchError, map, tap} from "rxjs/operators";
 import swal from 'sweetalert2';
 import {Router} from '@angular/router';
@@ -12,6 +12,7 @@ import {Router} from '@angular/router';
 export class ClienteService {
   private ENDPOINT: string = 'http://localhost:8080/api/clientes'
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
+  private progress: number = 0;
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -91,12 +92,19 @@ export class ClienteService {
     );
   }
 
-  uploadPhoto(archivo: File, id): Observable<Cliente>{
-    let suffix = "/upload/";
+  uploadPhoto(archivo: File, id): Observable<HttpEvent<any>>{
+    let suffix = "/upload";
     let formData = new FormData();
+
     formData.append("archivo", archivo);
     formData.append("id", id);
-    return this.http.post(this.ENDPOINT + suffix, formData).pipe(
+
+    const req = new HttpRequest('POST', this.ENDPOINT + suffix, formData, {
+      reportProgress: true
+    });
+
+    return this.http.request(req);
+    /*return this.http.request(req).pipe(
       map((response: any) => response.cliente as Cliente),
       catchError(e => {
         if (e.status == 400) {
@@ -106,6 +114,6 @@ export class ClienteService {
         swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
       })
-    );
+    );*/
   }
 }

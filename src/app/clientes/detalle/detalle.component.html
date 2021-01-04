@@ -2,15 +2,39 @@
   <div class="card-header">{{ titulo }}</div>
   <div class="card-body">
 
-    <div class="input-group">
-      <div class="custom-file">
-        <input (change)="chooseFile($event)" type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
-        <label class="custom-file-label" for="inputGroupFile04">Seleccione archivo...</label>
-      </div>
-      <div class="input-group-append">
-        <button (click)="uploadFile()" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Cargar</button>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <ul class="list-group text-dark mb-3" *ngIf="cliente">
+            <li class="list-group-item active">{{cliente.nombre}}</li>
+            <li class="list-group-item">{{cliente.apellido}}</li>
+            <li class="list-group-item">{{cliente.email}}</li>
+            <li class="list-group-item">{{cliente.createAt | date:"fullDate"}}</li>
+          </ul>
+          <div class="input-group">
+            <div class="custom-file">
+              <input (change)="chooseFile($event)" type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+              <label class="custom-file-label" for="inputGroupFile04" data-browse="Buscar">{{fileName}}</label>
+            </div>
+            <div class="input-group-append">
+              <button (click)="uploadFile()" [disabled]="!fotoSeleccionada" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Cargar</button>
+            </div>
+          </div>
+          <!--progress bar-->
+          <div *ngIf="progreso>0" class="progress">
+            <div class="progress-bar progress-bar-striped"
+                 role="progressbar"
+                 [ngStyle]="{width: progreso+'%'}"
+                 aria-valuenow="10" aria-valuemin="0"
+                 aria-valuemax="100">
+              {{progreso}}%
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <img *ngIf="cliente?.foto" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" class="img-thumbnail rounded">
+        </div>
       </div>
     </div>
-
   </div>
 </div>
