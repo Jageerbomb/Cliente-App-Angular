@@ -58,6 +58,15 @@
           <mat-datepicker #picker></mat-datepicker>
         </div>
       </div>
+      <div class="form-group row">
+        <label for="createAt" class="col-form-label col-sm-2">Region</label>
+        <div class="col-sm-5">
+          <select [compareWith]="compararRegion" id="regiones" name="regiones" [(ngModel)]="cliente.region" class="form-control">
+            <option [ngValue]="undefined" disabled>Seleccione region...</option>
+            <option *ngFor="let region of regiones" [ngValue]="region">{{region.nombre}}</option>
+          </select>
+        </div>
+      </div>
     </form>
   </div>
   <div class="card-footer">

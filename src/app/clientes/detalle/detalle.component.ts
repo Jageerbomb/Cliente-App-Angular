@@ -38,7 +38,6 @@ export class DetalleComponent implements OnInit {
     if (ev != null){
       this.progreso = 0;
       this.fotoSeleccionada = ev.target!=undefined?ev.target.files[0]:null;
-      console.log(this.fotoSeleccionada);
       if (this.fotoSeleccionada!==undefined){
         if (this.fotoSeleccionada?.type.indexOf('image') < 0) {
           swal.fire('Error Seleccionar Imagen', 'El archivo debe ser una imagen.', 'error');

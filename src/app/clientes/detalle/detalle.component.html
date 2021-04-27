@@ -9,7 +9,8 @@
             <li class="list-group-item active">{{cliente.nombre}}</li>
             <li class="list-group-item">{{cliente.apellido}}</li>
             <li class="list-group-item">{{cliente.email}}</li>
-            <li class="list-group-item">{{cliente.createAt | date:"fullDate"}}</li>
+            <li class="list-group-item">{{cliente.region.nombre}}</li>
+            <li class="list-group-item">{{cliente.createAt | date:"dd/MM/yyyy"}}</li>
           </ul>
           <div class="input-group">
             <div class="custom-file">
@@ -25,7 +26,8 @@
             <div class="progress-bar progress-bar-striped"
                  role="progressbar"
                  [ngStyle]="{width: progreso+'%'}"
-                 aria-valuenow="10" aria-valuemin="0"
+                 aria-valuenow="10"
+                 aria-valuemin="0"
                  aria-valuemax="100">
               {{progreso}}%
             </div>

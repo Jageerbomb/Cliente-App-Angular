@@ -5,10 +5,9 @@ import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from "@angular/common/h
 import {catchError, map, tap} from "rxjs/operators";
 import swal from 'sweetalert2';
 import {Router} from '@angular/router';
+import {Region} from "./region";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ClienteService {
   private ENDPOINT: string = 'http://localhost:8080/api/clientes'
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
@@ -104,16 +103,9 @@ export class ClienteService {
     });
 
     return this.http.request(req);
-    /*return this.http.request(req).pipe(
-      map((response: any) => response.cliente as Cliente),
-      catchError(e => {
-        if (e.status == 400) {
-          return throwError(e);
-        }
-        console.error(e.error.mensaje);
-        swal.fire(e.error.mensaje, e.error.error, 'error');
-        return throwError(e);
-      })
-    );*/
+  }
+
+  getRegions():Observable<Region[]>{
+    return this.http.get<Region[]>(this.ENDPOINT+'/regiones');
   }
 }

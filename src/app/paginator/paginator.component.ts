@@ -16,7 +16,6 @@ export class PaginatorComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    console.log(this.paginas.length)
     this.initPaginator();
   }
 
